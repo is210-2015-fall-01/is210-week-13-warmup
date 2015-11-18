@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Tasks 1-3."""
 
-import csv
+
 import json
 
 GRADES = {
@@ -35,14 +35,7 @@ def get_score_summary(filename):
     fhandler.readline()
     line = fhandler.readline()
 
-    while line:
-        lineparts = line.split(',')
-        grade = lineparts[10].strip().upper()
-        if grade in GRADE_SCALE:
-            data[lineparts[0].strip()] = {'boro': lineparts[1].strip().upper(),
-                                          'grade': GRADE_SCALE[grade]}
-        line = fhandler.readline()
-    fhandler.close()
+    
 
     summary = {}
     for values in data.itervalues():
@@ -112,4 +105,3 @@ def correlate_data(restaurants, green_markets, outfile):
     fhandler.close()
 
     return correlated
-
