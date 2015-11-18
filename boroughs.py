@@ -14,8 +14,6 @@ GRADES = {
     'F': float(0.60),
 }
 
-
-
 def get_score_summary(filename):
     """A function to loop through CSV data.
     Args:
