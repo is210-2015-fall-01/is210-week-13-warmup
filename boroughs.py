@@ -85,7 +85,9 @@ def get_market_density(filename):
     return boros
 
 
-def correlate_data(restaurants, green_markets, outfile):
+def correlate_data(file1='inspection_results.csv',
+                   file2='green_markets.json',
+                   file3='result.json'):
     """Combines data for restaurants and markets.
     Args:
         rdata:(dict): restaurant score summary.
@@ -95,16 +97,17 @@ def correlate_data(restaurants, green_markets, outfile):
     Example:
         {'BRONX': (0.9762820512820514, 0.1987179487179487)}
     """
-    rdata = get_score_summary(restaurants)
-    mdata = get_market_density(green_markets)
-
-    correlated = {}
-    for boro, data in rdata.iteritems():
-        if boro in mdata:
-            density = float(mdata[boro]) / data[0]
-            correlated[boro] = (data[1], density)
-    fhandler = open(outfile, 'w')
-    json.dump(correlated, fhandler)
+    data1 = get_score_summary(file1)
+    data2 = get_market_density(file2)
+    result = {}
+    for key2 in data2.iterkeys():
+        for key1 in data1.iterkeys():
+            if key1 == str(key2).upper():
+                val1 = data1[key1][1]
+                val2 = float(data2[key2])/(data1[key1][0])
+                result[key2] = (val1, val2)
+                result.update(result)
+    jdata = json.dumps(result)
+    fhandler = open(file3, 'w')
+    fhandler.write(jdata)
     fhandler.close()
-
-    return correlated
