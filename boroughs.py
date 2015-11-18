@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """Tasks 1-3."""
 
-
 import json
 
 GRADES = {
@@ -29,12 +28,11 @@ def get_score_summary(filename):
         'MANHATTAN': (748, 0.9771390374331531), 'QUEENS':
         (414, 0.9719806763285017)}
     """
-    fhandler = open(filename, 'r')
     data = {}
+    fhandler = open(filename, 'r')
+    csv_f = csv.reader(fhandler)
 
-    fhandler.readline()
-    line = fhandler.readline()
-     for row in csv_f:
+    for row in csv_f:
         if row[10] not in ['P', '', 'GRADE']:
             data[row[0]] = [row[1], row[10]]
             data.update(data)
