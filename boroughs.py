@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 """Tasks 1-3."""
 
+import csv
 import json
+
 
 GRADES = {
     'A': float(1.00),
