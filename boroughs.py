@@ -34,8 +34,11 @@ def get_score_summary(filename):
 
     fhandler.readline()
     line = fhandler.readline()
-
-    
+     for row in csv_f:
+        if row[10] not in ['P', '', 'GRADE']:
+            data[row[0]] = [row[1], row[10]]
+            data.update(data)
+    fhandler.close()
 
     summary = {}
     for values in data.itervalues():
