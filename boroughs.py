@@ -112,3 +112,26 @@ def get_market_density(filename):
             market_dict[boro] += market_count
     jsonfile.close()
     return market_dict
+
+
+def correlate_data(csvfile, jsonfile, outputfile='outputfile.txt'):
+    """Takes data from files, creates new dict and writes it into new file.
+    Args:
+        csffile (str)
+        jsonfile (str)
+        outputfile (str): default = 'outputfile.txt'
+    Returns:
+        write dict to file
+    Examples:
+        >>>correlate_data('inspection_results.csv', 'green_markets.json')
+    """
+    sdict = get_score_summary(csvfile)
+    mdict = get_market_density(jsonfile)
+    ndict = {}
+    for key in sdict.iterkeys():
+        for key2 in mdict.iterkeys():
+            if key == key2.upper():
+                ndict[key] = (sdict[key][1], (mdict[key2]/float(sdict[key][0])))
+    fhandler = open(outputfile, 'w')
+    json.dump(ndict, fhandler)
+    fhandler.close()
