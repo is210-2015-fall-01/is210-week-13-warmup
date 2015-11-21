@@ -8,19 +8,20 @@ import json
 
 
 GRADES = {
-         'A': float(1.00),
-         'B': float(0.90),
-         'C': float(0.80),
-         'D': float(0.70),
-         'F': float(0.60),
-         }
+    'A': float(1.00),
+    'B': float(0.90),
+    'C': float(0.80),
+    'D': float(0.70),
+    'F': float(0.60),
+    }
+
 
 def get_score_summary(filename):
     """ Takes filname and returns summarized version of data.
     Args:
         filename: csv file
     Returns:
-        (dict) 
+        (dict)
     """
     fhandler = open(filename, 'r')
     readfile = csv.reader(fhandler)
@@ -50,6 +51,7 @@ def get_score_summary(filename):
         results[key] = (first, second)
     return results
 
+
 def get_market_density(filename):
     """
     Args:
@@ -58,7 +60,8 @@ def get_market_density(filename):
         (dict)
     Examples:
         >>> get_market_density('green_markets.json')
-        {u'Bronx': 32, u'Brooklyn': 48, u'Staten Island': 2, u'Manhattan': 39, u'Queens': 16}
+        {u'Bronx': 32, u'Brooklyn': 48, u'Staten Island': 2, u'Manhattan':
+        39, u'Queens': 16}
     """
     fhandler = open(filename, 'r')
     json_data = json.load(fhandler)
@@ -74,6 +77,7 @@ def get_market_density(filename):
         result[data[8]] = count
         result.update(result)
     return result
+
 
 def correlate_data(file1='inspection_results.csv',
                    file2='green_markets.json',
@@ -94,11 +98,11 @@ def correlate_data(file1='inspection_results.csv',
         for file2_key in file2_data.iterkeys():
             if file2_key.upper() == file1_key:
                 first = file1_data[file1_key][1]
-                second = float(file2_data.iterksys[file2_key])/(file1_data[file1_key][0])
+                second = float(file2_data.iterkeys
+                               [file2_key])/(file1_data[file1_key][0])
                 result = ([(file2_key, (first, second))])
                 result.update(result)
     jdata = json.dumps(result)
     fhandler = open(file3, 'w')
     fhandler.write(jdata)
     fhandler.close()
-
